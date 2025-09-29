@@ -39,7 +39,7 @@ export default function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-red-500 p-4">
       <form onSubmit={handleSignup} className="max-w-md w-full bg-white p-6 rounded-lg shadow">
   <div className="flex items-center mb-4">
-    <img src="/src/assets/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
+    <img src="/src/assets/public/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
     <h2 className="text-2xl">Sign up</h2>
   </div>
 

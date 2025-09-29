@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 export default function Login() {
@@ -31,7 +31,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-6 rounded-lg shadow">
 <div className="flex items-center mb-4">
     <img src="/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
-    <h2 className="text-2xl">Login</h2>
+    <h2 className="text-2xl">Digital Cards</h2>
   </div>        <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -45,7 +45,7 @@ export default function Login() {
           className="w-full border rounded px-3 py-2 mb-3"
           placeholder="Password"
         />
-        <button className="w-full bg-blue-600 text-white py-2 rounded">Login</button>
+        <button className="w-full bg-blue-600 text-white py-2 rounded">Login</button><sup><Link to="/signup" className="text-blue-600 hover:underline">Sign up</Link></sup>
       </form>
     </div>
   );

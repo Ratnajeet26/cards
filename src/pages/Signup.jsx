@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 export default function Signup() {
@@ -63,7 +63,7 @@ export default function Signup() {
     className="w-full border rounded px-3 py-2 mb-3"
     placeholder="Confirm Password"
   />
-  <button className="w-full bg-blue-600 text-white py-2 rounded">Sign up</button>
+  <button className="w-full bg-blue-600 text-white py-2 rounded">Sign up</button><sup><Link to="/login" className="text-blue-600 hover:underline">Login</Link></sup>
 </form>
 
     </div>

@@ -174,7 +174,7 @@ const handleCheckout = () => {
       <div className="flex gap-2 justify-center mb-4 flex-wrap">
         <button
           onClick={() => setSelectedCategory(null)}
-          className={`px-4 py-2 rounded border ${
+          className={`px-4 py-2 rounded border ₹{
             selectedCategory === null
               ? "border-blue-500 text-blue-500"
               : "border-gray-300 text-gray-400"
@@ -186,7 +186,7 @@ const handleCheckout = () => {
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded border ${
+            className={`px-4 py-2 rounded border ₹{
               selectedCategory === cat
                 ? "border-blue-500 text-blue-500"
                 : "border-gray-300 text-gray-400"
@@ -204,7 +204,7 @@ const handleCheckout = () => {
             <div>
               <h3 className="font-bold text-lg">{p.name}</h3>
               <p className="text-gray-600">Category: {p.category}</p>
-              <p className="text-gray-800 font-semibold">Price: ${p.price}</p>
+              <p className="text-gray-800 font-semibold">Price: ₹{p.price}</p>
             </div>
             <button
               onClick={() => addToCart(p)}
@@ -218,7 +218,7 @@ const handleCheckout = () => {
 
       {/* Side Cart Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-xl transform transition-transform z-50 ${
+        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-xl transform transition-transform z-50 ₹{
           cartVisible ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -240,7 +240,7 @@ const handleCheckout = () => {
               <div key={item.id} className="flex justify-between items-center border-b pb-2">
                 <div>
                   <p className="font-semibold">{item.name}</p>
-                  <p className="text-gray-600 text-sm">Price: ${item.price}</p>
+                  <p className="text-gray-600 text-sm">Price: ₹{item.price}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <button
                       onClick={() => updateQty(item.id, -1)}
@@ -269,7 +269,7 @@ const handleCheckout = () => {
         {cart.length > 0 && (
           <div className="p-4 border-t space-y-2">
             <p className="font-semibold">
-              Total Items: {totalItems} | Total Price: ${totalPrice}
+              Total Items: {totalItems} | Total Price: ₹{totalPrice}
             </p>
             <input
               type="text"

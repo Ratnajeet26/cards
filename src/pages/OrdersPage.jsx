@@ -44,7 +44,7 @@ export default function OrdersPage() {
                   {order.items.map((item) => (
                     <li key={item.id} className="text-gray-700">
                       {item.name} x {item.qty}{" "}
-                      <span className="text-gray-500">(${item.price})</span>
+                      <span className="text-gray-500">(₹{item.price})</span>
                     </li>
                   ))}
                 </ul>
@@ -53,7 +53,7 @@ export default function OrdersPage() {
               {/* Total */}
               <div className="text-right">
                 <p className="text-lg font-bold">
-                  Total: <span className="text-green-600">${order.total}</span>
+                  Total: <span className="text-green-600">₹{order.total}</span>
                 </p>
               </div>
             </div>

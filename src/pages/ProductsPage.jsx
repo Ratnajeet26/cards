@@ -63,7 +63,7 @@ export default function ProductsPage() {
   };
 
   const handleDelete = (product) => {
-    if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
+    if (window.confirm(`Are you sure you want to delete "₹{product.name}"?`)) {
       dispatch({ type: "DELETE_PRODUCT", payload: product.id });
     }
   };
@@ -138,7 +138,7 @@ export default function ProductsPage() {
                   Card: {card?.details?.Name || card?.category || "-"}
                 </p>
                 <p className="text-gray-600">Category: {p.category}</p>
-                <p className="text-gray-800 font-semibold">Price: ${p.price}</p>
+                <p className="text-gray-800 font-semibold">Price: ₹{p.price}</p>
               </div>
 
               <div className="flex justify-end mt-4 space-x-2">

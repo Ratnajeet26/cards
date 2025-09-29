@@ -24,7 +24,7 @@ export default function Header({ toggleSidebar }) {
         >
           ☰
         </button>
-    <img src="/src/assets/public/digi.jpg" className="h-12 w-12 mr-2 rounded" alt="logo" />
+    <img src="/digi.jpg" className="h-12 w-12 mr-2 rounded" alt="logo" />
         <h1 className="text-xl font-bold">Digital Cards</h1>
       </div>
 

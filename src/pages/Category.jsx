@@ -63,7 +63,7 @@ export default function CardCategoryPage() {
       {/* Add Product Categories */}
       {selectedCardId && (
         <div>
-          <h2 className="text-center font-semibold mb-2">Product Categories</h2>
+      <h2 className="text-2xl font-bold mb-4">Product Category</h2>
           <div className="flex gap-2">
             <input
               type="text"

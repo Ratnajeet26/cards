@@ -27,10 +27,12 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-red-500 p-4">
       <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl mb-4">Login</h2>
-        <input
+<div className="flex items-center mb-4">
+    <img src="/src/assets/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
+    <h2 className="text-2xl">Login</h2>
+  </div>        <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full border rounded px-3 py-2 mb-3"

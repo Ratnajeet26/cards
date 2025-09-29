@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
+import { LuLogOut } from "react-icons/lu";
+
 
 export default function Header({ toggleSidebar }) {
   const { state, dispatch } = useContext(GlobalContext);
@@ -22,6 +24,7 @@ export default function Header({ toggleSidebar }) {
         >
           ☰
         </button>
+    <img src="/src/assets/digi.jpg" className="h-12 w-12 mr-2 rounded" alt="logo" />
         <h1 className="text-xl font-bold">Digital Cards</h1>
       </div>
 
@@ -30,9 +33,10 @@ export default function Header({ toggleSidebar }) {
         <span>{state.user?.username}</span>
         <button
           onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+          className="bg-red-500 hover:bg-red-600 px-4 py-1 rounded cursor-pointer"
         >
-          Logout
+          <LuLogOut />
+
         </button>
       </div>
     </header>

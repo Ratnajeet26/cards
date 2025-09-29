@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
+import { FiEdit2, FiTrash2, FiShare2 } from "react-icons/fi";
 
 export default function ProductsPage() {
   const { state, dispatch } = useContext(GlobalContext);
@@ -122,7 +123,7 @@ export default function ProductsPage() {
         </button>
       </form>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {state.products.map((p) => {
           const card = state.cards.find(
             (c) => String(c.id) === String(p.cardId)
@@ -141,18 +142,18 @@ export default function ProductsPage() {
                 <p className="text-gray-800 font-semibold">Price: ₹{p.price}</p>
               </div>
 
-              <div className="flex justify-end mt-4 space-x-2">
+              <div className="flex justify-end  space-x-5">
                 <button
                   onClick={() => handleEdit(p)}
-                  className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-3  text-yellow-500 hover:text-yellow-600 cursor-pointer"
                 >
-                  Edit
+                  <FiEdit2 size={20} />
                 </button>
                 <button
                   onClick={() => handleDelete(p)}
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-3 py-1 text-red-500 hover:text-red-600 cursor-pointer"
                 >
-                  Delete
+                  <FiTrash2 size={20} />
                 </button>
               </div>
             </div>

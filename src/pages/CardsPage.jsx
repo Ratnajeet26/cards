@@ -245,7 +245,7 @@ export default function CardPage() {
       {/* Display all Cards */}
       {state.cards.length > 0 && (
         <div className="mt-6 space-y-4">
-          <h2 className="text-center font-semibold mb-2">Saved Cards</h2>
+      <h2 className="text-2xl font-bold mb-4">Saved Cards</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {state.cards.map((card) => (
               <div
@@ -278,7 +278,7 @@ export default function CardPage() {
       setFormValues(card.details);
       setEditingCardId(card.id);
     }}
-    className="text-yellow-500 hover:text-yellow-600"
+    className="text-yellow-500 hover:text-yellow-600 cursor-pointer"
     title="Edit Card"
   >
     <FiEdit2 size={20} />
@@ -287,7 +287,7 @@ export default function CardPage() {
   {/* Delete Icon */}
   <button
     onClick={() => dispatch({ type: "DELETE_CARD", payload: card.id })}
-    className="text-red-500 hover:text-red-600"
+    className="text-red-500 hover:text-red-600 cursor-pointer"
     title="Delete Card"
   >
     <FiTrash2 size={20} />
@@ -298,7 +298,7 @@ export default function CardPage() {
   onClick={() => {
     navigate(`/card/${card.id}`);
   }}
-  className="text-gray-700 hover:text-gray-900"
+  className="text-gray-700 hover:text-gray-900 cursor-pointer"
   title="Go to Card"
 >
   <FiShare2 size={20} />

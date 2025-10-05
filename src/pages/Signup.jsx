@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
+import Swal from "sweetalert2";
 
 export default function Signup() {
   const { state, dispatch } = useContext(GlobalContext);
@@ -13,15 +14,27 @@ export default function Signup() {
     e.preventDefault();
 
     if (!username.trim() || !password || !confirmPassword) {
-      return alert("All fields are required");
+      return Swal.fire({
+        title: "All Fields are require",
+        text: "Try again?",
+        icon: "question",
+      });
     }
     if (password !== confirmPassword) {
-      return alert("Passwords do not match");
+      return Swal.fire({
+        title: "Oops...",
+        text: "Confirm Password does not match",
+        icon: "error",
+      });
     }
 
     // check if username already exists
     if (state.users.some((u) => u.username === username.trim())) {
-      return alert("Username already exists");
+      return Swal.fire({
+        title: "Oops..",
+        text: "User Name Already Exists",
+        icon: "error",
+      });
     }
 
     const newUser = {
@@ -31,41 +44,57 @@ export default function Signup() {
     };
 
     dispatch({ type: "SIGNUP", payload: newUser });
-    alert("Signup successful! Please login.");
+    // alert("Signup successful! Please login.");
+    Swal.fire({
+      title: "Success...",
+      text: "Please Login Now",
+      icon: "success",
+      timer: 1500,
+    });
+
     navigate("/login");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-red-500 p-4">
-      <form onSubmit={handleSignup} className="max-w-md w-full bg-white p-6 rounded-lg shadow">
-  <div className="flex items-center mb-4">
-    <img src="/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
-    <h2 className="text-2xl">Digital Cards</h2>
-  </div>
+      <form
+        onSubmit={handleSignup}
+        className="max-w-md w-full bg-white p-6 rounded-lg shadow"
+      >
+        <div className="flex items-center mb-4">
+          <img src="/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
+          <h2 className="text-2xl">Digital Cards</h2>
+        </div>
 
-  <input
-    value={username}
-    onChange={(e) => setUsername(e.target.value)}
-    className="w-full border rounded px-3 py-2 mb-3"
-    placeholder="Username"
-  />
-  <input
-    type="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    className="w-full border rounded px-3 py-2 mb-3"
-    placeholder="Password"
-  />
-  <input
-    type="password"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-    className="w-full border rounded px-3 py-2 mb-3"
-    placeholder="Confirm Password"
-  />
-  <button className="w-full bg-blue-600 text-white py-2 rounded">Sign up</button><sup><Link to="/login" className="text-blue-600 hover:underline">Login</Link></sup>
-</form>
-
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border rounded px-3 py-2 mb-3"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border rounded px-3 py-2 mb-3"
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="w-full border rounded px-3 py-2 mb-3"
+          placeholder="Confirm Password"
+        />
+        <button className="w-full bg-blue-600 text-white py-2 rounded">
+          Sign up
+        </button>
+        <sup>
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </sup>
+      </form>
     </div>
   );
 }

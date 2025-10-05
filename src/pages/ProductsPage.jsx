@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { FiEdit2, FiTrash2, FiShare2 } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 export default function ProductsPage() {
   const { state, dispatch } = useContext(GlobalContext);
@@ -26,7 +27,12 @@ export default function ProductsPage() {
   const handleAddOrUpdateProduct = (e) => {
     e.preventDefault();
     if (!name || !cardId || !category)
-      return alert("Enter product name, select card and category");
+      return Swal.fire({
+              title: "Oops..",
+              text: "Enter product name, select card and category",
+              icon: "error",
+              timer:1500
+            });
 
     if (editingProductId) {
       // Update existing product
@@ -40,6 +46,12 @@ export default function ProductsPage() {
           cardId,
         },
       });
+      Swal.fire({
+              title: "Success",
+              text: "Product Updated Successfully",
+              icon: "success",
+              timer:1500
+            });
     } else {
       // Add new product
       const product = {
@@ -50,6 +62,13 @@ export default function ProductsPage() {
         cardId,
       };
       dispatch({ type: "ADD_PRODUCT", payload: product });
+       Swal.fire({
+              title: "Success",
+              text: "Product Addedd Successfully",
+              icon: "success",
+              timer:1500
+            });
+      
     }
 
     resetForm();
@@ -61,12 +80,37 @@ export default function ProductsPage() {
     setPrice(product.price);
     setCategory(product.category);
     setCardId(product.cardId);
+    
   };
 
   const handleDelete = (product) => {
-    if (window.confirm(`Are you sure you want to delete "₹{product.name}"?`)) {
-      dispatch({ type: "DELETE_PRODUCT", payload: product.id });
+
+Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // dispatch your action or call API
+dispatch({ type: "DELETE_PRODUCT", payload: product.id });
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your product has been deleted.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
+  });
+
+    
+    // if (window.confirm(`Are you sure you want to delete "₹{product.name}"?`)) {
+    //   dispatch({ type: "DELETE_PRODUCT", payload: product.id });
+    // }
   };
 
   return (

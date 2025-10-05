@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
+import Swal from "sweetalert2";
 
 export default function CardCategoryPage() {
   const { state, dispatch } = useContext(GlobalContext);
@@ -38,7 +39,31 @@ export default function CardCategoryPage() {
         (c) => c !== cat
       ),
     };
-    dispatch({ type: "UPDATE_CARD", payload: updatedCard });
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+     dispatch({ type: "UPDATE_CARD", payload: updatedCard });
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your category has been deleted.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+      });
+
+
+
+   
   };
 
   return (

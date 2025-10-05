@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { FiEdit2, FiTrash2, FiShare2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 
 const cardData = {
   // General: {
@@ -45,20 +45,18 @@ const cardData = {
       Wedding: ["Venue", "Catering"],
       Birthday: ["Party Supplies", "Decor"],
     },
-    fields:{
-      Venue:["Event Name", "Date", "Location"],
-      Catering:["Event Name", "Date", "Location"],
-      "Party Supplies":["Event Name", "Date", "Location"],
-      "Decor":["Event Name", "Date", "Location"]
-
-    } ,
+    fields: {
+      Venue: ["Event Name", "Date", "Location"],
+      Catering: ["Event Name", "Date", "Location"],
+      "Party Supplies": ["Event Name", "Date", "Location"],
+      Decor: ["Event Name", "Date", "Location"],
+    },
   },
 };
 
 export default function CardPage() {
   const { state, dispatch } = useContext(GlobalContext);
   const navigate = useNavigate();
-
 
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [editingCardId, setEditingCardId] = useState(null);
@@ -91,18 +89,29 @@ export default function CardPage() {
     setFormValues({ ...formValues, [field]: value });
   };
 
-  const handleAddCard = () => {
-    if (!selectedGroup) return alert("Please select a card group!");
-    const newCard = {
-      id: Date.now(),
-      group: selectedGroup,
-      category: selectedCategory,
-      subcategory: selectedSubcategory,
-      details: formValues,
-    };
-    dispatch({ type: "ADD_CARD", payload: newCard });
-    alert("Card added successfully!");
-    setFormValues({});
+  const handleDeleteCard = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // dispatch your action or call API
+        dispatch({ type: "DELETE_CARD", payload: id });
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your card has been deleted.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   return (
@@ -217,7 +226,11 @@ export default function CardPage() {
                   productCategories: [],
                 };
                 dispatch({ type: "UPDATE_CARD", payload: updatedCard });
-                alert("Card updated successfully!");
+                Swal.fire({
+                  title: "Success",
+                  text: "Card Updated Successfully",
+                  icon: "success",
+                });
                 setEditingCardId(null); // reset edit state
               } else {
                 // Add new card
@@ -230,7 +243,12 @@ export default function CardPage() {
                   productCategories: [], // initialize empty array for products
                 };
                 dispatch({ type: "ADD_CARD", payload: newCard });
-                alert("Card added successfully!");
+                Swal.fire({
+                  title: "Success",
+                  text: "Card Added Successfully",
+                  icon: "success",
+                  timer: 1500,
+                });
               }
 
               setFormValues({});
@@ -245,7 +263,7 @@ export default function CardPage() {
       {/* Display all Cards */}
       {state.cards.length > 0 && (
         <div className="mt-6 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Saved Cards</h2>
+          <h2 className="text-2xl font-bold mb-4">Saved Cards</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {state.cards.map((card) => (
               <div
@@ -267,46 +285,44 @@ export default function CardPage() {
 
                 {/* Buttons */}
                 {
+                  <div className="mt-4 flex justify-between items-center">
+                    {/* Edit Icon */}
+                    <button
+                      onClick={() => {
+                        setSelectedGroup(card.group);
+                        setSelectedCategory(card.category);
+                        setSelectedSubcategory(card.subcategory || null);
+                        setFormValues(card.details);
+                        setEditingCardId(card.id);
+                      }}
+                      className="text-yellow-500 hover:text-yellow-600 cursor-pointer"
+                      title="Edit Card"
+                    >
+                      <FiEdit2 size={20} />
+                    </button>
 
-<div className="mt-4 flex justify-between items-center">
-  {/* Edit Icon */}
-  <button
-    onClick={() => {
-      setSelectedGroup(card.group);
-      setSelectedCategory(card.category);
-      setSelectedSubcategory(card.subcategory || null);
-      setFormValues(card.details);
-      setEditingCardId(card.id);
-    }}
-    className="text-yellow-500 hover:text-yellow-600 cursor-pointer"
-    title="Edit Card"
-  >
-    <FiEdit2 size={20} />
-  </button>
+                    {/* Delete Icon */}
+                    <button
+                      onClick={() => handleDeleteCard(card.id)}
+                      className="text-red-500 hover:text-red-600 cursor-pointer"
+                      title="Delete Card"
+                    >
+                      <FiTrash2 size={20} />
+                    </button>
 
-  {/* Delete Icon */}
-  <button
-    onClick={() => dispatch({ type: "DELETE_CARD", payload: card.id })}
-    className="text-red-500 hover:text-red-600 cursor-pointer"
-    title="Delete Card"
-  >
-    <FiTrash2 size={20} />
-  </button>
+                    {/* Share Icon */}
+                    <button
+                      onClick={() => {
+                        navigate(`/card/${card.id}`);
+                      }}
+                      className="text-gray-700 hover:text-gray-900 cursor-pointer"
+                      title="Go to Card"
+                    >
+                      <FiShare2 size={20} />
+                    </button>
+                  </div>
 
-  {/* Share Icon */}
- <button
-  onClick={() => {
-    navigate(`/card/${card.id}`);
-  }}
-  className="text-gray-700 hover:text-gray-900 cursor-pointer"
-  title="Go to Card"
->
-  <FiShare2 size={20} />
-</button>
-</div>
-
-                
-                /* <div className="mt-4 flex gap-2">
+                  /* <div className="mt-4 flex gap-2">
                   <button
                     onClick={() => {
                       setSelectedGroup(card.group);
@@ -329,7 +345,8 @@ export default function CardPage() {
                   >
                     Delete
                   </button>
-                </div> */}
+                </div> */
+                }
               </div>
             ))}
           </div>

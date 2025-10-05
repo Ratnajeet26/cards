@@ -1,14 +1,33 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {
+  IoIosHome,
+  IoIosCard,
+  IoIosCube,
+  IoIosListBox,
+  IoIosBasket,
+} from "react-icons/io";
+import { MdCategory } from "react-icons/md";
 
 export default function SideBar({ isOpen, toggleSidebar }) {
   const links = [
-    { name: "Home", path: "/dashboard" },
-    { name: "Cards", path: "/dashboard/cards" },
-    { name: "Category", path: "/dashboard/category" },
-    { name: "Products", path: "/dashboard/products" },
-    { name: "Orders", path: "/dashboard/orders" },
-    
+    { name: "Home", path: "/dashboard", icon: <IoIosHome size={20} /> },
+    { name: "Cards", path: "/dashboard/cards", icon: <IoIosCard size={20} /> },
+    {
+      name: "Category",
+      path: "/dashboard/category",
+      icon: <MdCategory size={20} />,
+    },
+    {
+      name: "Products",
+      path: "/dashboard/products",
+      icon: <IoIosCube size={20} />,
+    },
+    {
+      name: "Orders",
+      path: "/dashboard/orders",
+      icon: <IoIosBasket size={20} />,
+    },
   ];
 
   return (
@@ -16,17 +35,17 @@ export default function SideBar({ isOpen, toggleSidebar }) {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0  bg-opacity-10 z-20 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-10 z-20 md:hidden"
           onClick={toggleSidebar}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0  min-h-screen  w-64 bg-gray-800 text-white z-30 transform
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          transition-transform duration-300 ease-in-out
-          md:translate-x-0 md:static md:flex md:flex-col`}
+        className={`fixed top-0 left-0 min-h-screen w-64 bg-gray-800 text-white z-30 transform
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        transition-transform duration-300 ease-in-out
+        md:translate-x-0 md:static md:flex md:flex-col`}
       >
         {/* Mobile close button */}
         <div className="flex justify-between items-center p-4 md:hidden">
@@ -56,12 +75,12 @@ export default function SideBar({ isOpen, toggleSidebar }) {
               to={link.path}
               onClick={toggleSidebar} // ✅ closes sidebar on mobile
               className={({ isActive }) =>
-                `px-3 py-2 rounded hover:bg-gray-700 ${
-                  isActive ? "bg-gray-700" : ""
-                }`
+                `flex items-center gap-3 px-3 py-2 rounded transition-colors duration-200 
+                hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
               }
             >
-              {link.name}
+              {link.icon}
+              <span>{link.name}</span>
             </NavLink>
           ))}
         </nav>

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 import { FiShoppingCart, FiTrash2 } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 export default function PublicCardPage() {
   const { cardId } = useParams();
@@ -120,8 +121,12 @@ const handleCheckout = () => {
   });
   localStorage.removeItem("cart");
 
-  alert("Order placed successfully!");
-
+Swal.fire({
+              title: "Success",
+              text: "Order Placed Successfully",
+              icon: "success",
+              timer:1500
+            });
   // Clear local states
   setCart([]);
   setCheckoutInfo({
@@ -218,7 +223,7 @@ const handleCheckout = () => {
 
       {/* Side Cart Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-xl transform transition-transform z-50 ₹{
+        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-xl transform transition-transform z-50 ${
           cartVisible ? "translate-x-0" : "translate-x-full"
         }`}
       >

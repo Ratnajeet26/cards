@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { state, dispatch } = useContext(GlobalContext);
@@ -10,16 +11,25 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!username.trim() || !password) return alert("Enter username & password");
+
+    if (!username.trim() || !password)
+      return Swal.fire({
+        title: "Oops..",
+        text: "Enter email and password?",
+        icon: "error",
+      });
 
     const user = state.users.find(
       (u) => u.username === username.trim() && u.password === password
     );
-    console.log("user :",user);
-    
+    console.log("user :", user);
 
     if (!user) {
-      return alert("Invalid credentials");
+      return Swal.fire({
+        title: "Oops...",
+        text: "Invalid Credentials .. Try Again",
+        icon: "error",
+      });
     }
 
     dispatch({ type: "LOGIN", payload: user });
@@ -28,11 +38,15 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-red-500 p-4">
-      <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-6 rounded-lg shadow">
-<div className="flex items-center mb-4">
-    <img src="/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
-    <h2 className="text-2xl">Digital Cards</h2>
-  </div>        <input
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md w-full bg-white p-6 rounded-lg shadow"
+      >
+        <div className="flex items-center mb-4">
+          <img src="/digi.jpg" className="h-12 w-12 mr-2" alt="logo" />
+          <h2 className="text-2xl">Digital Cards</h2>
+        </div>{" "}
+        <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full border rounded px-3 py-2 mb-3"
@@ -45,7 +59,14 @@ export default function Login() {
           className="w-full border rounded px-3 py-2 mb-3"
           placeholder="Password"
         />
-        <button className="w-full bg-blue-600 text-white py-2 rounded">Login</button><sup><Link to="/signup" className="text-blue-600 hover:underline">Sign up</Link></sup>
+        <button className="w-full bg-blue-600 text-white py-2 rounded">
+          Login
+        </button>
+        <sup>
+          <Link to="/signup" className="text-blue-600 hover:underline">
+            Sign up
+          </Link>
+        </sup>
       </form>
     </div>
   );

@@ -101,7 +101,7 @@ dispatch({ type: "DELETE_PRODUCT", payload: product.id });
         title: "Deleted!",
         text: "Your product has been deleted.",
         icon: "success",
-        timer: 1500,
+        timer: 1000,
         showConfirmButton: false,
       });
     }

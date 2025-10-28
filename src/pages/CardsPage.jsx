@@ -5,15 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const cardData = {
-  // General: {
-  //   categories: ["Cat A", "Cat B"],
-  //   subcategories: {
-  //     "Cat A": ["Sub A1", "Sub A2"],
-  //     "Cat B": ["Sub B1", "Sub B2"],
-  //   },
-  //   fields: ["Name", "Email", "Phone"],
 
-  // },
   Organisation: {
     categories: [
       "Hospitality & Food Services",
